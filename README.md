@@ -2,7 +2,7 @@
 
 MongoDB is a **document-oriented NoSQL database** that stores data as flexible, JSON-like documents. Unlike traditional relational databases (like MySQL or PostgreSQL) that organise data into rigid rows and tables, MongoDB uses **collections** and **documents** — making it a natural fit for modern applications that deal with varied or frequently changing data.
 
-### How does it compare to SQL?
+## How does it compare to SQL?
 
 | SQL Term   | MongoDB Equivalent | Description                           |
 |------------|--------------------|---------------------------------------|
@@ -12,7 +12,7 @@ MongoDB is a **document-oriented NoSQL database** that stores data as flexible, 
 | Column     | Field              | A key-value pair within a document    |
 | Primary Key| `_id`              | Auto-generated unique identifier      |
 
-### What does a document look like?
+## What does a document look like?
 
 ```json
 {
