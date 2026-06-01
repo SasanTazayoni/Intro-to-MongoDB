@@ -175,3 +175,56 @@ db.institute.find()
 ```
 
 ![Collection view in Compass](images/compass-collection-view.png)
+
+---
+
+## Validation
+
+MongoDB allows you to enforce rules on documents in a collection using **JSON Schema validation**. This ensures that only documents matching your defined structure can be inserted.
+
+### Creating a Collection with Validation
+
+The example below creates a `students` collection that requires every document to have a `name` (string) and an `age` (integer):
+
+```mongosh
+db.createCollection("students", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "age"],
+      properties: {
+        name: { bsonType: "string" },
+        age: { bsonType: "int" }
+      }
+    }
+  }
+})
+```
+
+A successful output looks like:
+
+![Validation collection created](images/validation-create-collection.png)
+
+### Invalid Document
+
+Attempting to insert a document that fails validation — here `age` is missing:
+
+```mongosh
+db.students.insertOne({ name: "Alice" })
+```
+
+MongoDB rejects the insert with a validation error:
+
+![Invalid insert error](images/validation-invalid.png)
+
+### Valid Document
+
+Inserting a document that meets all the validation rules:
+
+```mongosh
+db.students.insertOne({ name: "Alice", age: 25 })
+```
+
+MongoDB confirms the insert was successful:
+
+![Valid insert success](images/validation-valid.png)
