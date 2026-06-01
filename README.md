@@ -228,3 +228,123 @@ db.students.insertOne({ name: "Alice", age: 25 })
 MongoDB confirms the insert was successful:
 
 ![Valid insert success](images/validation-valid.png)
+
+---
+
+## Working with a Films Collection
+
+### Creating the Collection with Validation
+
+The `films` collection requires every document to have a `title` (string), `year` (int), and `genre` (string):
+
+```mongosh
+db.createCollection("films", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["title", "year", "genre"],
+      properties: {
+        title: { bsonType: "string" },
+        year: { bsonType: "int" },
+        genre: { bsonType: "string" }
+      }
+    }
+  }
+})
+```
+
+![Films collection created](images/films-create-collection.png)
+
+---
+
+### Inserting Documents
+
+**insertMany** — insert multiple documents in one command:
+
+```mongosh
+db.films.insertMany([
+  { title: "Inception", year: 2010, genre: "Sci-Fi" },
+  { title: "The Dark Knight", year: 2008, genre: "Action" },
+  { title: "Interstellar", year: 2014, genre: "Sci-Fi" }
+])
+```
+
+![insertMany output](images/films-insert-many.png)
+
+**insertOne** — insert a single document:
+
+```mongosh
+db.films.insertOne({ title: "The Matrix", year: 1999, genre: "Sci-Fi" })
+```
+
+![insertOne output](images/films-insert-one.png)
+
+**insert()** — the older deprecated method, still works but not recommended:
+
+```mongosh
+db.films.insert({ title: "Pulp Fiction", year: 1994, genre: "Crime" })
+```
+
+MongoDB will show a `DeprecationWarning` and recommend using `insertOne`, `insertMany`, or `bulkWrite` instead:
+
+![insert() deprecation warning](images/films-insert-deprecated.png)
+
+---
+
+### Searching for Documents
+
+**Find all documents** in a collection:
+
+```mongosh
+db.films.find()
+```
+
+![find() all documents](images/films-find-all.png)
+
+**Filter by a field** — find all Sci-Fi films:
+
+```mongosh
+db.films.find({ genre: "Sci-Fi" })
+```
+
+Only documents matching the filter are returned:
+
+![find() with filter](images/films-find-filter.png)
+
+---
+
+### Updating Documents
+
+**updateOne** — update the first document that matches the filter. Here we correct the year for Inception:
+
+```mongosh
+db.films.updateOne({ title: "Inception" }, { $set: { year: 2011 } })
+```
+
+`matchedCount: 1` and `modifiedCount: 1` confirm one document was updated:
+
+![updateOne output](images/films-update-one.png)
+
+**updateMany** — update all documents that match the filter. Here we rename the genre for all Sci-Fi films:
+
+```mongosh
+db.films.updateMany({ genre: "Sci-Fi" }, { $set: { genre: "Science Fiction" } })
+```
+
+`matchedCount: 3` and `modifiedCount: 3` confirm all matching documents were updated:
+
+![updateMany output](images/films-update-many.png)
+
+---
+
+### Deleting Documents
+
+**deleteOne** — delete the first document that matches the filter:
+
+```mongosh
+db.films.deleteOne({ title: "Pulp Fiction" })
+```
+
+`deletedCount: 1` confirms the document was removed:
+
+![deleteOne output](images/films-delete-one.png)
