@@ -348,3 +348,94 @@ db.films.deleteOne({ title: "Pulp Fiction" })
 `deletedCount: 1` confirms the document was removed:
 
 ![deleteOne output](images/films-delete-one.png)
+
+---
+
+## Embedding vs Referencing
+
+When designing a MongoDB database, one of the key decisions is how to handle **related data**. There are two main approaches: **embedding** and **referencing**.
+
+---
+
+### Embedding
+
+Embedding means storing related data **directly inside a document** as a nested object or array.
+
+```json
+{
+  "_id": "1",
+  "name": "Alice Johnson",
+  "address": {
+    "street": "123 Main St",
+    "city": "London",
+    "postcode": "EC1A 1BB"
+  },
+  "courses": ["Data Engineering", "Data Analysis"]
+}
+```
+
+**When to use embedding:**
+- The nested data is always accessed together with the parent document
+- The nested data doesn't change frequently
+- The relationship is **one-to-few** (e.g. a user with a few addresses)
+- You want fast reads — one query returns everything you need
+
+**Advantages:**
+- Single query to retrieve all related data
+- No JOINs required
+- Better read performance
+
+**Disadvantages:**
+- Documents can grow very large
+- Duplicated data if the same nested data is shared across multiple documents
+- Harder to update nested data across many documents
+
+---
+
+### Referencing
+
+Referencing means storing related data in a **separate collection** and linking to it using an `_id` — similar to a foreign key in SQL.
+
+```json
+// users collection
+{
+  "_id": "1",
+  "name": "Alice Johnson",
+  "course_ids": ["101", "102"]
+}
+
+// courses collection
+{
+  "_id": "101",
+  "title": "Data Engineering"
+}
+```
+
+To retrieve the full data, you would need to query both collections.
+
+**When to use referencing:**
+- The related data is large or frequently updated
+- The related data is shared across many documents
+- The relationship is **one-to-many** or **many-to-many**
+- You want to avoid data duplication
+
+**Advantages:**
+- Smaller, cleaner documents
+- Easier to update shared data in one place
+- Better for complex or large relationships
+
+**Disadvantages:**
+- Requires multiple queries to retrieve related data
+- More complex application logic
+
+---
+
+### Summary
+
+| | Embedding | Referencing |
+|---|---|---|
+| Data location | Inside the document | Separate collection |
+| Query complexity | Simple (one query) | Complex (multiple queries) |
+| Best for | One-to-few relationships | One-to-many / many-to-many |
+| Update ease | Harder across documents | Easier (update in one place) |
+| Performance | Faster reads | Faster writes/updates |
