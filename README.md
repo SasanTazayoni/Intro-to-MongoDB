@@ -82,6 +82,12 @@ mongodb://localhost:27017
 
 3. Click **"Connect"** — Compass will connect and display your databases in the left panel
 
+![New Connection dialog](images/compass-new-connection.png)
+
+Once connected, you will see your databases listed in the left panel:
+
+![Compass connected](images/compass-connected.png)
+
 > **Tip:** If the connection fails, make sure the MongoDB service is running. On Windows, check Services or run `mongod` in a terminal.
 
 ---
@@ -93,6 +99,8 @@ mongodb://localhost:27017
 1. In the left panel, click **"+ Create database"**
 2. Enter a **Database Name** (e.g. `sparta`) and an initial **Collection Name** (e.g. `institute`)
 3. Click **"Create Database"**
+
+![Create Database dialog](images/compass-create-database.png)
 
 > MongoDB requires at least one collection when creating a database.
 
@@ -127,6 +135,8 @@ db.createCollection("institute")
 2. Click **"Add data"** → **"Insert document"**
 3. Edit the JSON in the editor (the `_id` field is auto-generated)
 4. Click **"Insert"**
+
+![Insert Document editor](images/compass-insert-document.png)
 
 **Insert multiple documents:**
 
@@ -163,3 +173,5 @@ How to view documents in a collection in mongosh:
 ```mongosh
 db.institute.find()
 ```
+
+![Collection view in Compass](images/compass-collection-view.png)
