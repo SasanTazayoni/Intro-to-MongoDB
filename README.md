@@ -1,6 +1,30 @@
 # Intro to MongoDB
 
-MongoDB is a document database that stores JSON-like documents, which allows you to store data with flexible schema and provides querying and aggregation tools for access and analysis.
+MongoDB is a **document-oriented NoSQL database** that stores data as flexible, JSON-like documents. Unlike traditional relational databases (like MySQL or PostgreSQL) that organise data into rigid rows and tables, MongoDB uses **collections** and **documents** — making it a natural fit for modern applications that deal with varied or frequently changing data.
+
+### How does it compare to SQL?
+
+| SQL Term   | MongoDB Equivalent | Description                           |
+|------------|--------------------|---------------------------------------|
+| Database   | Database           | A container for collections           |
+| Table      | Collection         | A group of related documents          |
+| Row        | Document           | A single record, stored as JSON/BSON  |
+| Column     | Field              | A key-value pair within a document    |
+| Primary Key| `_id`              | Auto-generated unique identifier      |
+
+### What does a document look like?
+
+```json
+{
+  "_id": "64a7f3c2e4b0d1a2c3f4e5b6",
+  "name": "Alice Johnson",
+  "course": "Data Engineering",
+  "enrolled": true,
+  "grades": [85, 92, 78]
+}
+```
+
+Documents are self-contained and can hold nested objects and arrays — something not natively possible in a SQL row. MongoDB stores data in **BSON** (Binary JSON) format internally, which supports richer data types and faster reads.
 
 ## MongoDB Use Cases and advantages/disadvantages
 
@@ -38,6 +62,47 @@ MongoDB is a document database that stores JSON-like documents, which allows you
 - Gaming data
 - Chat systems/apps
 
+## Connecting Locally with MongoDB Compass
+
+**MongoDB Compass** is the official GUI for MongoDB. It lets you explore databases, run queries, and manage data without the command line.
+
+### Prerequisites
+
+- MongoDB installed and running locally
+- [MongoDB Compass](https://www.mongodb.com/try/download/compass) downloaded and installed
+
+### Steps
+
+1. Open **MongoDB Compass**
+2. In the connection string field on the home screen, enter:
+
+```
+mongodb://localhost:27017
+```
+
+3. Click **"Connect"** — Compass will connect and display your databases in the left panel
+
+> **Tip:** If the connection fails, make sure the MongoDB service is running. On Windows, check Services or run `mongod` in a terminal.
+
+---
+
+## Creating a Database and Collection
+
+### Using MongoDB Compass
+
+1. In the left panel, click **"+ Create database"**
+2. Enter a **Database Name** (e.g. `sparta`) and an initial **Collection Name** (e.g. `institute`)
+3. Click **"Create Database"**
+
+> MongoDB requires at least one collection when creating a database.
+
+### Using MongoDB Compass to add a Collection to an existing Database
+
+1. Select your database from the left panel
+2. Click **"+ Create collection"**, enter a name, and click **"Create Collection"**
+
+---
+
 ## MongoShell
 
 By default mongosh will open with `test`
@@ -53,6 +118,33 @@ Once we run this command, the test>database indicator should change to sparta>. 
 ```mongosh
 db.createCollection("institute")
 ```
+
+### Adding Documents via MongoDB Compass
+
+**Insert a single document:**
+
+1. Open your collection in Compass
+2. Click **"Add data"** → **"Insert document"**
+3. Edit the JSON in the editor (the `_id` field is auto-generated)
+4. Click **"Insert"**
+
+**Insert multiple documents:**
+
+1. Click **"Add data"** → **"Insert document"**
+2. Replace the `{}` with an array of documents:
+
+```json
+[
+  { "course": "Data Engineering" },
+  { "course": "Data Analysis" }
+]
+```
+
+3. Click **"Insert"**
+
+---
+
+### Adding Documents via mongosh
 
 To insert data into our collection:
 
