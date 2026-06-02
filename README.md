@@ -1,16 +1,18 @@
 # Intro to MongoDB
 
+![MongoDB](./tech/mongodb.png)
+
 MongoDB is a **document-oriented NoSQL database** that stores data as flexible, JSON-like documents. Unlike traditional relational databases (like MySQL or PostgreSQL) that organise data into rigid rows and tables, MongoDB uses **collections** and **documents** — making it a natural fit for modern applications that deal with varied or frequently changing data.
 
 ## How does it compare to SQL?
 
-| SQL Term   | MongoDB Equivalent | Description                           |
-|------------|--------------------|---------------------------------------|
-| Database   | Database           | A container for collections           |
-| Table      | Collection         | A group of related documents          |
-| Row        | Document           | A single record, stored as JSON/BSON  |
-| Column     | Field              | A key-value pair within a document    |
-| Primary Key| `_id`              | Auto-generated unique identifier      |
+| SQL Term    | MongoDB Equivalent | Description                          |
+| ----------- | ------------------ | ------------------------------------ |
+| Database    | Database           | A container for collections          |
+| Table       | Collection         | A group of related documents         |
+| Row         | Document           | A single record, stored as JSON/BSON |
+| Column      | Field              | A key-value pair within a document   |
+| Primary Key | `_id`              | Auto-generated unique identifier     |
 
 ## What does a document look like?
 
@@ -144,10 +146,7 @@ db.createCollection("institute")
 2. Replace the `{}` with an array of documents:
 
 ```json
-[
-  { "course": "Data Engineering" },
-  { "course": "Data Analysis" }
-]
+[{ "course": "Data Engineering" }, { "course": "Data Analysis" }]
 ```
 
 3. Click **"Insert"**
@@ -375,17 +374,20 @@ Embedding means storing related data **directly inside a document** as a nested 
 ```
 
 **When to use embedding:**
+
 - The nested data is always accessed together with the parent document
 - The nested data doesn't change frequently
 - The relationship is **one-to-few** (e.g. a user with a few addresses)
 - You want fast reads — one query returns everything you need
 
 **Advantages:**
+
 - Single query to retrieve all related data
 - No JOINs required
 - Better read performance
 
 **Disadvantages:**
+
 - Documents can grow very large
 - Duplicated data if the same nested data is shared across multiple documents
 - Harder to update nested data across many documents
@@ -414,17 +416,20 @@ Referencing means storing related data in a **separate collection** and linking 
 To retrieve the full data, you would need to query both collections.
 
 **When to use referencing:**
+
 - The related data is large or frequently updated
 - The related data is shared across many documents
 - The relationship is **one-to-many** or **many-to-many**
 - You want to avoid data duplication
 
 **Advantages:**
+
 - Smaller, cleaner documents
 - Easier to update shared data in one place
 - Better for complex or large relationships
 
 **Disadvantages:**
+
 - Requires multiple queries to retrieve related data
 - More complex application logic
 
@@ -432,10 +437,10 @@ To retrieve the full data, you would need to query both collections.
 
 ### Summary
 
-| | Embedding | Referencing |
-|---|---|---|
-| Data location | Inside the document | Separate collection |
-| Query complexity | Simple (one query) | Complex (multiple queries) |
-| Best for | One-to-few relationships | One-to-many / many-to-many |
-| Update ease | Harder across documents | Easier (update in one place) |
-| Performance | Faster reads | Faster writes/updates |
+|                  | Embedding                | Referencing                  |
+| ---------------- | ------------------------ | ---------------------------- |
+| Data location    | Inside the document      | Separate collection          |
+| Query complexity | Simple (one query)       | Complex (multiple queries)   |
+| Best for         | One-to-few relationships | One-to-many / many-to-many   |
+| Update ease      | Harder across documents  | Easier (update in one place) |
+| Performance      | Faster reads             | Faster writes/updates        |
