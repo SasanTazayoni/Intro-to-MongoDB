@@ -1,0 +1,103 @@
+// use starwars
+use("starwars");
+
+// ============================================================
+// SETUP: Import data
+// Run this in your terminal (not mongosh) to import all JSON files:
+//
+//   for file in *.json; do
+//     mongoimport --db starwars --collection characters --file "$file"
+//   done
+// ============================================================
+
+
+// ------------------------------------------------------------
+// TASK 1: Find the document for Luke Skywalker
+// ------------------------------------------------------------
+
+db.characters.find({ name: "Luke Skywalker" });
+
+
+// ------------------------------------------------------------
+// TASK 2: Output Luke Skywalker's name and eye colour only
+// The second argument is a projection — 1 includes a field, 0 excludes it.
+// _id is included by default so we explicitly set it to 0.
+// ------------------------------------------------------------
+
+db.characters.find(
+  { name: "Luke Skywalker" },
+  { name: 1, eye_color: 1, _id: 0 }
+);
+
+
+// ------------------------------------------------------------
+// TASK 3: Find Admiral Ackbar — output name and species name only
+// The species field is an embedded object, so we use dot notation
+// to access the nested "name" field inside it.
+// ------------------------------------------------------------
+
+db.characters.find(
+  { name: "Ackbar" },
+  { name: 1, "species.name": 1, _id: 0 }
+);
+
+
+// ------------------------------------------------------------
+// TASK 4: Output the homeworld name of all humans
+// Again using dot notation to access nested fields in both
+// the filter and the projection.
+// ------------------------------------------------------------
+
+db.characters.find(
+  { "species.name": "Human" },
+  { name: 1, "homeworld.name": 1, _id: 0 }
+);
+
+
+// ------------------------------------------------------------
+// TASK 5: Find all characters with yellow OR orange eyes
+// $in matches documents where the field value equals any value
+// in the provided array — useful as an alternative to multiple $or conditions.
+// ------------------------------------------------------------
+
+db.characters.find(
+  { eye_color: { $in: ["yellow", "orange"] } },
+  { name: 1, eye_color: 1, _id: 0 }
+);
+
+
+// ------------------------------------------------------------
+// TASK 6: Find all characters with a height over 200
+//
+// NOTE: Height values in this dataset are stored as strings, not numbers.
+// Using $gt with a string value ("200") causes lexicographic (alphabetical)
+// comparison rather than numeric — so "99" > "200" because "9" > "2".
+// To fix this, we first convert all numeric height strings to integers.
+// ------------------------------------------------------------
+
+// Step 1: Convert height strings to integers where the value is purely numeric
+// (skipping values like "unknown"). Uses an aggregation pipeline update.
+db.characters.updateMany(
+  { height: /^[0-9]+$/ },
+  [{ $set: { height: { $toInt: "$height" } } }]
+);
+
+// Step 2: Now the numeric comparison works correctly
+db.characters.find(
+  { height: { $gt: 200 } },
+  { name: 1, height: 1, _id: 0 }
+);
+
+
+// ------------------------------------------------------------
+// TASK 7: Comparison operators
+//
+// $eq  — equal to                      { height: { $eq: 172 } }
+// $ne  — not equal to                  { gender: { $ne: "male" } }
+// $gt  — greater than                  { height: { $gt: 200 } }
+// $gte — greater than or equal to      { height: { $gte: 200 } }
+// $lt  — less than                     { height: { $lt: 100 } }
+// $lte — less than or equal to         { height: { $lte: 100 } }
+// $in  — matches any value in array    { eye_color: { $in: ["blue", "brown"] } }
+// $nin — matches none of the values    { eye_color: { $nin: ["blue", "brown"] } }
+// ------------------------------------------------------------
