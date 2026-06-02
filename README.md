@@ -1,6 +1,6 @@
 # Intro to MongoDB
 
-![MongoDB](./tech/mongodb.png)
+![MongoDB](./tech/mongodb.png) ![VSCode](./tech/vscode.png)
 
 MongoDB is a **document-oriented NoSQL database** that stores data as flexible, JSON-like documents. Unlike traditional relational databases (like MySQL or PostgreSQL) that organise data into rigid rows and tables, MongoDB uses **collections** and **documents** — making it a natural fit for modern applications that deal with varied or frequently changing data.
 
