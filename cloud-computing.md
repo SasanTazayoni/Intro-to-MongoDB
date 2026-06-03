@@ -24,8 +24,6 @@
 
 ## 1. What is Cloud Computing?
 
-![Cloud Computing Infrastructure](https://journeyteam.com/wp-content/uploads/2022/04/cloud-architecture-diagram.jpg)
-
 Cloud computing is the on-demand delivery of computing resources — including servers, storage, databases, networking, software, and analytics — over the internet, typically on a pay-as-you-go basis.
 
 Rather than owning and maintaining physical hardware and data centres, organisations and individuals can rent access to these resources from a cloud provider. Think of it like electricity from the national grid: you don't generate your own power, you simply draw from a shared resource and pay for what you use.
@@ -49,8 +47,6 @@ Cloud computing didn't appear overnight. Mainframe time-sharing in the 1960s pla
 ---
 
 ## 2. What are Data Centres?
-
-![Data Centre Server Racks](https://www.sentinelrack.com/wp-content/uploads/2019/11/data-center-cooling.jpg)
 
 A **data centre** is a large physical facility that houses the computing infrastructure that powers cloud services. They contain thousands of servers, networking equipment, storage systems, and the power and cooling infrastructure to keep it all running 24/7/365.
 
@@ -116,8 +112,6 @@ This is a surprisingly nuanced question. There is no flashing banner that says "
 ---
 
 ## 4. Cloud Deployment Models — The Main Two
-
-![Cloud Deployment Models](https://cloudkatha.com/ezoimgfmt/i0.wp.com/cloudkatha.com/wp-content/uploads/2022/02/Cloud-Deployment-Models.png)
 
 A **cloud deployment model** describes *where* infrastructure lives, *who* owns it, and *who* can access it. There are four recognised models; the two most common are:
 
@@ -201,7 +195,7 @@ A **cloud deployment model** describes *where* infrastructure lives, *who* owns 
 
 ## 6. The Three Main Types of Cloud Services
 
-![IaaS PaaS SaaS Diagram](https://davidchou.com/images/cloud-service-models.png)
+![IaaS PaaS SaaS Diagram](images/iaas-paas-saas.png)
 
 Cloud services are categorised by how much the provider manages versus how much you manage. The three core models are:
 
@@ -282,8 +276,6 @@ Cloud services are categorised by how much the provider manages versus how much 
 
 ## 7. Advantages of Cloud Computing for a Business
 
-![Cloud Computing Benefits](https://www.itsasap.com/hs-fs/hubfs/benefits%20of%20cloud%20computing.jpg)
-
 ### ✅ Cost Efficiency
 
 Traditional IT requires significant capital expenditure (CapEx) — servers, hardware, data centre space, power, and the staff to maintain it. Cloud computing converts this to operational expenditure (OpEx), paying only for what you consume. There is no need to over-provision hardware "just in case".
@@ -353,6 +345,8 @@ Cloud platforms are complex. Moving to the cloud without the appropriate skills 
 ---
 
 ## 9. Cloud Market Share as of 2026
+
+![Cloud Market Share 2026](images/cloud-market-share.jpeg)
 
 The cloud infrastructure market has grown at extraordinary pace. The global cloud market is valued at approximately **$917 billion in 2026**, with Synergy Research Group expecting it to cross **$1 trillion** before year-end.
 
