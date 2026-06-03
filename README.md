@@ -1,6 +1,6 @@
-# Intro to MongoDB
+# Starwars MongoDB and Cloud Computing
 
-![MongoDB](./tech/mongodb.png) ![VSCode](./tech/vscode.png)
+![MongoDB](./tech/mongodb.png) ![Python](./tech/python.png) ![VSCode](./tech/vscode.png)
 
 MongoDB is a **document-oriented NoSQL database** that stores data as flexible, JSON-like documents. Unlike traditional relational databases (like MySQL or PostgreSQL) that organise data into rigid rows and tables, MongoDB uses **collections** and **documents** — making it a natural fit for modern applications that deal with varied or frequently changing data.
 
@@ -444,3 +444,67 @@ To retrieve the full data, you would need to query both collections.
 | Best for         | One-to-few relationships | One-to-many / many-to-many   |
 | Update ease      | Harder across documents  | Easier (update in one place) |
 | Performance      | Faster reads             | Faster writes/updates        |
+
+---
+
+## PyMongo — Interacting with MongoDB via Python
+
+**PyMongo** is the official Python driver for MongoDB. It lets you connect to a MongoDB database and perform CRUD operations using Python instead of the Mongo shell.
+
+### Setup
+
+```bash
+pip install pymongo requests
+```
+
+### Star Wars Database
+
+The Python scripts in this project fetch Star Wars data from the [SWAPI API](https://swapi.info/) and populate a `starwars` database in MongoDB, using **referencing** between collections (pilots stored as `_id` references rather than embedded objects).
+
+Run each script to populate the corresponding collection:
+
+```bash
+python starships.py
+python vehicles.py
+python planets.py
+python species.py
+python films.py
+```
+
+> **Note:** `characters` must be pre-populated separately as it is referenced by all other collections.
+
+### Querying with PyMongo
+
+`queries.py` demonstrates common query patterns against the `characters` collection:
+
+```python
+import pymongo
+
+client = pymongo.MongoClient()
+db = client['starwars']
+
+# Find one document
+db.characters.find_one({"name": "Darth Vader"})
+
+# Filter with projection
+db.characters.find_one(
+    {"name": "Darth Vader"},
+    {"name": 1, "height": 1, "_id": 0}
+)
+
+# Iterate a cursor
+for doc in db.characters.find({"eye_color": "yellow"}):
+    print(doc["name"])
+
+# Aggregation — average height of female characters
+db.characters.aggregate([
+    {"$match": {"gender": "female"}},
+    {"$group": {"_id": "$gender", "avg_height": {"$avg": "$height"}}}
+])
+```
+
+Run it with:
+
+```bash
+python queries.py
+```
