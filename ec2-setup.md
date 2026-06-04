@@ -186,13 +186,58 @@ You should see `ubuntu` printed in the console.
 >
 > Nginx is extremely common in production because it is fast, handles many simultaneous connections efficiently, and can also act as a **reverse proxy** (sitting in front of an app like a Node.js server and forwarding requests to it).
 
-Run the following commands in sequence:
+You can install Nginx either by running the commands manually, or by using the provided script which does the same thing in one step.
+
+---
+
+### Option A — Run the script
+
+From your local machine, open Git Bash and navigate to the root of this project:
+
+```bash
+cd /c/Users/[your_username]/path/to/this/project
+```
+
+Copy the script to your EC2 instance using `scp` (Secure Copy):
+
+```bash
+scp -i "C:/Users/[your_username]/.ssh/your-key-pair-name.pem" scripts/deploy-nginx.sh ubuntu@<your-public-ip>:~/
+```
+
+> **Breaking down the `scp` command:**
+> - `scp` — works just like `ssh` but transfers files instead of opening a terminal session.
+> - `-i "..."` — path to your private key, same as with `ssh`.
+> - `scripts/deploy-nginx.sh` — the local file to upload (relative to your current directory).
+> - `ubuntu@<your-public-ip>:~/` — the destination: the `ubuntu` user's home directory (`~/`) on the remote instance.
+
+SSH into your instance, then make the script executable and run it:
+
+```bash
+ssh -i "C:/Users/[your_username]/.ssh/your-key-pair-name.pem" ubuntu@<your-public-ip>
+chmod +x deploy-nginx.sh   # gives the file permission to be executed as a program
+./deploy-nginx.sh          # runs the script
+```
+
+> **Why `chmod +x`?** Files uploaded via `scp` do not automatically have execute permission. `+x` adds it. Without this step, the shell would refuse to run the file.
+
+---
+
+### Option B — Run the commands manually
+
+If you prefer not to copy the script, run the following commands directly in your SSH session:
 
 ```bash
 sudo apt update -y       # refreshes the package list from Ubuntu's repositories
 sudo apt upgrade -y      # upgrades all installed packages to their latest versions
 sudo apt install nginx -y  # installs the Nginx web server
-sudo systemctl status nginx  # confirms Nginx is active and running
+```
+
+---
+
+Then, regardless of which option you chose, confirm Nginx is running:
+
+```bash
+sudo systemctl status nginx
 ```
 
 > **What each command does:**
