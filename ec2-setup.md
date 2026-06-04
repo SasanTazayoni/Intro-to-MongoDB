@@ -85,6 +85,17 @@ Click **Add Security Group Rule** and configure it as follows:
 
 ![Security Group Rules](images/security-group-rules.png)
 
+> **What is a security group?**
+> A security group is a virtual firewall that controls what traffic is allowed in and out of your EC2 instance. By default, all inbound traffic is blocked — you have to explicitly open ports.
+>
+> **What is port 80?**
+> Port 80 is the standard port for HTTP (unencrypted web traffic). When you visit `http://some-ip-address` in a browser, your browser sends the request to port 80 on that server.
+>
+> **What does `0.0.0.0/0` mean?**
+> This is CIDR notation meaning "any IP address anywhere on the internet". Combined with port 80, this rule says: *allow any browser from anywhere to make an HTTP request to this server*. For a production app you would typically restrict this further, but for this project it is fine.
+>
+> The existing **SSH rule (port 22)** was added automatically when you created the instance. It allows you to connect to the server remotely from your terminal using your key pair.
+
 ---
 
 ## 6. Storage and Advanced Details
@@ -139,13 +150,24 @@ Set the correct permissions on your key file:
 chmod 400 "your-key-pair-name.pem"
 ```
 
+> **Why `chmod 400`?**
+> `chmod` changes file permissions. `400` means the file is readable only by you, and no one else can touch it. SSH is strict about this — it will refuse to use a private key that is readable by other users because a world-readable key is considered insecure. You only need to run this once.
+
 Then connect to your instance using the SSH command shown on the instructions page:
 
 ```bash
 ssh -i "your-key-pair-name.pem" ubuntu@<your-public-ip>
 ```
 
+> **Breaking down the SSH command:**
+> - `ssh` — the Secure Shell program, which opens an encrypted remote terminal session.
+> - `-i "your-key-pair-name.pem"` — tells SSH which private key to use for authentication. The server holds the matching public key (AWS put it there when you launched the instance), so only someone with this `.pem` file can log in.
+> - `ubuntu` — the default username on Ubuntu EC2 instances.
+> - `@<your-public-ip>` — the IP address of your server.
+
 When prompted with a host authenticity warning, type `yes` and press Enter to authorise the login.
+
+> This warning appears the first time you connect. SSH is telling you it has never seen this server before and is asking you to confirm you trust it. Once you say yes, the server's fingerprint is saved locally so you are not prompted again.
 
 Verify the connection with:
 
@@ -159,6 +181,11 @@ You should see `ubuntu` printed in the console.
 
 ## 9. Install and Verify Nginx
 
+> **What is Nginx?**
+> Nginx (pronounced "engine-x") is a web server — a program that runs on your EC2 instance and listens for incoming HTTP requests. When a browser navigates to your server's IP address, it sends an HTTP request to port 80. Nginx receives that request and sends back a response (an HTML page, a file, a forwarded API call, etc.).
+>
+> Nginx is extremely common in production because it is fast, handles many simultaneous connections efficiently, and can also act as a **reverse proxy** (sitting in front of an app like a Node.js server and forwarding requests to it).
+
 Run the following commands in sequence:
 
 ```bash
@@ -168,11 +195,28 @@ sudo apt install nginx -y  # installs the Nginx web server
 sudo systemctl status nginx  # confirms Nginx is active and running
 ```
 
+> **What each command does:**
+> - `sudo` — runs the command as a superuser (administrator). Most system-level changes require this.
+> - `apt update` — syncs your local list of available packages with Ubuntu's remote repositories. This does not install anything — it just updates what your system knows is available.
+> - `apt upgrade` — installs the latest versions of all already-installed packages. Good practice before adding new software.
+> - `apt install nginx` — downloads and installs Nginx. After installation, Ubuntu automatically starts it and configures it to start on every reboot.
+> - `systemctl status nginx` — queries **systemd** (Ubuntu's service manager) for the current status of Nginx. You want to see `active (running)`.
+>
+> **How the full picture works:**
+> 1. Your browser sends an HTTP request to `http://<your-public-ip>` (port 80).
+> 2. The EC2 security group rule you created allows that traffic through.
+> 3. The request reaches the instance and is received by Nginx.
+> 4. Nginx serves back a response — at this point, the default welcome page.
+>
+> Later, you would configure Nginx to serve your actual application instead of the default page (by editing files in `/etc/nginx/`), or set it up as a reverse proxy that forwards requests to a Node/Python/other backend running on a different port.
+
 You should see the Nginx service reported as **active (running)**.
 
 ![Running](images/running.png)
 
 Return to the instance dashboard and copy the **Public IPv4 address**. Paste it into your browser — make sure the URL starts with `http://` not `https://` (some browsers add the `s` automatically).
+
+> If your browser silently upgrades to `https://`, the request will fail because you have not configured an SSL certificate. Either force `http://` in the address bar, or temporarily try a different browser.
 
 You should see the default Nginx welcome page, confirming the server is live.
 
