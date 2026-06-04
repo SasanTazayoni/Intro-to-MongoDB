@@ -133,7 +133,7 @@ You should see `active (running)`. Press `q` to exit the status view.
 
 ## 8. Connect via MongoDB Compass
 
-Open MongoDB Compass and create a new connection using:
+Open MongoDB Compass and create a new connection. You'll need your instance's public IPv4 address — go to the EC2 instance dashboard, copy it, and paste it into the connection string below:
 
 ```
 mongodb://<your-public-ip>:27017
@@ -143,7 +143,7 @@ This is the same format as your localhost connection string — just replace `lo
 
 When prompted to open Compass, click **Open MongoDBCompass**.
 
-![MongoDB Connection Confirmation](images/mongodb-connection-confirmation.png)
+![MongoDB Connection Confirmation](images/mongodb-connection-confirmation-browser.png)
 
 Compass will warn you that the connection has no authentication — click **Connect** to proceed.
 
