@@ -66,6 +66,8 @@ Scroll down to **Application and OS Images**, select **Ubuntu**, then change the
 
 ![Confirm Changes](images/confirm-changes.png)
 
+Scroll down to **Instance Type** and select **t3.micro**.
+
 ---
 
 ## 5. Configure Network Settings
@@ -85,7 +87,15 @@ Click **Add Security Group Rule** and configure it as follows:
 
 ---
 
-## 6. Select Key Pair and Launch
+## 6. Storage and Advanced Details
+
+Scroll down to **Configure Storage** — leave the defaults as they are.
+
+Scroll down to **Advanced Details** — leave everything blank.
+
+---
+
+## 7. Select Key Pair and Launch
 
 Scroll down to **Key Pair (login)** and select the key pair you created earlier.
 
@@ -101,7 +111,7 @@ Once created, click the link in the success message to go to the instance dashbo
 
 ---
 
-## 7. Connect via SSH
+## 8. Connect via SSH
 
 On the instance dashboard, click the **Connect** button at the top.
 
@@ -135,6 +145,8 @@ Then connect to your instance using the SSH command shown on the instructions pa
 ssh -i "your-key-pair-name.pem" ubuntu@<your-public-ip>
 ```
 
+When prompted with a host authenticity warning, type `yes` and press Enter to authorise the login.
+
 Verify the connection with:
 
 ```bash
@@ -145,7 +157,7 @@ You should see `ubuntu` printed in the console.
 
 ---
 
-## 8. Install and Verify Nginx
+## 9. Install and Verify Nginx
 
 Run the following commands in sequence:
 
