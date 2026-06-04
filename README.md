@@ -468,11 +468,11 @@ The Python scripts in this project fetch Star Wars data from the [SWAPI API](htt
 Run each script to populate the corresponding collection:
 
 ```bash
-python starships.py
-python vehicles.py
-python planets.py
-python species.py
-python films.py
+python mongodb/starships.py
+python mongodb/vehicles.py
+python mongodb/planets.py
+python mongodb/species.py
+python mongodb/films.py
 ```
 
 > **Note:** `characters` must be pre-populated separately as it is referenced by all other collections.
@@ -510,7 +510,7 @@ db.characters.aggregate([
 Run it with:
 
 ```bash
-python queries.py
+python mongodb/queries.py
 ```
 
 ---

@@ -24,7 +24,7 @@ You need two inbound rules:
 | 22 | 0.0.0.0/0 | SSH access |
 | 27017 | 0.0.0.0/0 | MongoDB external access |
 
-![MongoDB Security Group](images/mongodb-security-group.png)
+![MongoDB Security Group](../images/mongodb-security-group.png)
 
 > **Why port 27017?**
 > This is MongoDB's default port. Opening it in the security group allows external clients (like MongoDB Compass on your laptop) to reach the database. Without this rule, all connection attempts would be blocked at the firewall before even reaching MongoDB.
@@ -35,7 +35,7 @@ You need two inbound rules:
 
 Select your existing key pair (`se-sasan-key-pair`) and launch the instance. Once running, note the **Public IPv4 address** from the instance dashboard.
 
-![MongoDB Instance Dashboard](images/mongodb-instance-dashboard.png)
+![MongoDB Instance Dashboard](../images/mongodb-instance-dashboard.png)
 
 ---
 
@@ -127,7 +127,7 @@ sudo systemctl status mongod
 
 You should see `active (running)`. Press `q` to exit the status view.
 
-![MongoDB Running](images/mongodb-running.png)
+![MongoDB Running](../images/mongodb-running.png)
 
 ---
 
@@ -143,12 +143,12 @@ This is the same format as your localhost connection string — just replace `lo
 
 When prompted to open Compass, click **Open MongoDBCompass**.
 
-![MongoDB Connection Confirmation](images/mongodb-connection-confirmation-browser.png)
+![MongoDB Connection Confirmation](../images/mongodb-connection-confirmation-browser.png)
 
 Compass will warn you that the connection has no authentication — click **Connect** to proceed.
 
-![MongoDB Connection Confirmation 2](images/mongodb-connection-confirmation2.png)
+![MongoDB Connection Confirmation 2](../images/mongodb-connection-confirmation2.png)
 
 You should see **Connected to `<your-public-ip>:27017`** in Compass, with the default `admin`, `config`, and `local` databases listed.
 
-![MongoDB Connection Success](images/mongodb-connection-success.png)
+![MongoDB Connection Success](../images/mongodb-connection-success.png)

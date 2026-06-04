@@ -8,7 +8,7 @@ Amazon EC2 (Elastic Compute Cloud) lets you rent virtual servers in the cloud. T
 
 Sign in to the AWS Management Console with your credentials.
 
-![Sign In](images/sign-in.png)
+![Sign In](../images/sign-in.png)
 
 ---
 
@@ -16,7 +16,7 @@ Sign in to the AWS Management Console with your credentials.
 
 Once signed in, select the appropriate regional server from the top-right dropdown. Choose the region closest to your users for the best performance.
 
-![Choose Server](images/choose-server.png)
+![Choose Server](../images/choose-server.png)
 
 ---
 
@@ -24,17 +24,17 @@ Once signed in, select the appropriate regional server from the top-right dropdo
 
 A key pair is used to securely SSH into your instance. For a deeper explanation of how SSH keys work, see the [DataCamp SSH Keys tutorial](https://www.datacamp.com/tutorial/ssh-keys). In the left-hand menu, navigate to **Network & Security → Key Pairs**.
 
-![Key Pairs Menu](images/key-pairs-menu.png)
+![Key Pairs Menu](../images/key-pairs-menu.png)
 
 Click **Create Key Pair**.
 
-![Create Key Pair Button](images/create-key-pair-button.png)
+![Create Key Pair Button](../images/create-key-pair-button.png)
 
 Give the key pair a name and leave the default settings, then click **Create**.
 
-![Key Pair Settings](images/key-pair-settings.png)
+![Key Pair Settings](../images/key-pair-settings.png)
 
-![Created Key Pair](images/created-key-pair.png)
+![Created Key Pair](../images/created-key-pair.png)
 
 The `.pem` file will download automatically. Move it to your `.ssh` folder:
 
@@ -50,21 +50,21 @@ If the `.ssh` folder does not exist, create it manually, then move the `.pem` fi
 
 In the left-hand menu, navigate to **Instances**.
 
-![New Instance Menu](images/new-instance-menu.png)
+![New Instance Menu](../images/new-instance-menu.png)
 
 Click **Launch Instances**.
 
-![Launch New Instance](images/launch-new-instance.png)
+![Launch New Instance](../images/launch-new-instance.png)
 
 Give your server a name.
 
-![Server Name](images/server-name.png)
+![Server Name](../images/server-name.png)
 
 Scroll down to **Application and OS Images**, select **Ubuntu**, then change the version to **24.04** from the dropdown and confirm when prompted.
 
-![Ubuntu](images/ubuntu.png)
+![Ubuntu](../images/ubuntu.png)
 
-![Confirm Changes](images/confirm-changes.png)
+![Confirm Changes](../images/confirm-changes.png)
 
 Scroll down to **Instance Type** and select **t3.micro**.
 
@@ -74,16 +74,16 @@ Scroll down to **Instance Type** and select **t3.micro**.
 
 Scroll down to **Network Settings** and click **Edit**. Give the security group a descriptive name.
 
-![Edit Network Settings](images/edit-network-settings.png)
+![Edit Network Settings](../images/edit-network-settings.png)
 
-![Security Group Name](images/security-group-name.png)
+![Security Group Name](../images/security-group-name.png)
 
 Click **Add Security Group Rule** and configure it as follows:
 
 - **Port range:** 80
 - **Source:** 0.0.0.0/0 *(allows public HTTP access — for this project only)*
 
-![Security Group Rules](images/security-group-rules.png)
+![Security Group Rules](../images/security-group-rules.png)
 
 > **What is a security group?**
 > A security group is a virtual firewall that controls what traffic is allowed in and out of your EC2 instance. By default, all inbound traffic is blocked — you have to explicitly open ports.
@@ -110,15 +110,15 @@ Scroll down to **Advanced Details** — leave everything blank.
 
 Scroll down to **Key Pair (login)** and select the key pair you created earlier.
 
-![Appropriate Key Pair](images/appropriate-key-pair.png)
+![Appropriate Key Pair](../images/appropriate-key-pair.png)
 
 Review the summary on the right, then click **Launch Instance**.
 
-![Preview](images/preview.png)
+![Preview](../images/preview.png)
 
 Once created, click the link in the success message to go to the instance dashboard.
 
-![Create Instance Success](images/create-instance-success.png)
+![Create Instance Success](../images/create-instance-success.png)
 
 ---
 
@@ -126,11 +126,11 @@ Once created, click the link in the success message to go to the instance dashbo
 
 On the instance dashboard, click the **Connect** button at the top.
 
-![Dashboard](images/dashboard.png)
+![Dashboard](../images/dashboard.png)
 
 This opens a connection instructions page. Switch to the **SSH client** tab and keep it open for reference.
 
-![SSH Instructions](images/ssh-instructions.png)
+![SSH Instructions](../images/ssh-instructions.png)
 
 Open **Git Bash** (Windows) and navigate to your `.ssh` folder:
 
@@ -257,7 +257,7 @@ sudo systemctl status nginx
 
 You should see the Nginx service reported as **active (running)**.
 
-![Running](images/running.png)
+![Running](../images/running.png)
 
 Return to the instance dashboard and copy the **Public IPv4 address**. Paste it into your browser — make sure the URL starts with `http://` not `https://` (some browsers add the `s` automatically).
 
@@ -265,4 +265,4 @@ Return to the instance dashboard and copy the **Public IPv4 address**. Paste it 
 
 You should see the default Nginx welcome page, confirming the server is live.
 
-![Nginx](images/nginx.png)
+![Nginx](../images/nginx.png)
