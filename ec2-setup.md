@@ -22,7 +22,7 @@ Once signed in, select the appropriate regional server from the top-right dropdo
 
 ## 3. Create a Key Pair
 
-A key pair is used to securely SSH into your instance. In the left-hand menu, navigate to **Network & Security → Key Pairs**.
+A key pair is used to securely SSH into your instance. For a deeper explanation of how SSH keys work, see the [DataCamp SSH Keys tutorial](https://www.datacamp.com/tutorial/ssh-keys). In the left-hand menu, navigate to **Network & Security → Key Pairs**.
 
 ![Key Pairs Menu](images/key-pairs-menu.png)
 
