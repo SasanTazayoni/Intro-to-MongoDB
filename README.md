@@ -8,6 +8,30 @@
 
 MongoDB is a **document-oriented NoSQL database** that stores data as flexible, JSON-like documents. Unlike traditional relational databases (like MySQL or PostgreSQL) that organise data into rigid rows and tables, MongoDB uses **collections** and **documents** — making it a natural fit for modern applications that deal with varied or frequently changing data.
 
+## Installing MongoDB Locally
+
+Download links for all popular operating systems can be found here:
+https://www.mongodb.com/try/download/community
+
+Make sure to get the **Community** edition rather than the Enterprise edition.
+
+### Windows
+
+1. Scroll down to the installer download section
+2. Choose **8.3.2 (current)**
+3. Choose **Windows x64**
+4. Choose **msi**
+5. Click **Download**
+6. Open the installer
+7. Accept the license agreement and choose **"Complete"** install
+8. Make sure to select **"Install MongoDB as a Service"**
+9. Make sure to check the **"Install MongoDB Compass"** checkbox
+10. Click **"Install"** and wait for it to finish
+
+Once installed, you can open Compass and connect to your local MongoDB instance using the default connection string `mongodb://localhost:27017`.
+
+---
+
 ## How does it compare to SQL?
 
 | SQL Term    | MongoDB Equivalent | Description                          |
