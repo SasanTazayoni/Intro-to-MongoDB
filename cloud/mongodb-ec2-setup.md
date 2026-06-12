@@ -47,7 +47,13 @@ From your local `.ssh` folder in Git Bash, copy the script to the instance:
 scp -i "se-sasan-key-pair.pem" /c/Users/helpp/Desktop/starwars-mongodb-and-cloud-computing/scripts/deploy-mongo.sh ubuntu@<your-public-ip>:~/
 ```
 
-> `scp` (Secure Copy) transfers files over SSH using the same key authentication. The file lands in the home directory (`~/`) of the instance.
+> **Breaking down the `scp` command:**
+> - `scp` — Secure Copy. Works exactly like `ssh` (same encryption, same key authentication) but transfers files instead of opening an interactive terminal session.
+> - `-i "se-sasan-key-pair.pem"` — the private key to authenticate with, same as when you SSH in.
+> - `/c/Users/helpp/Desktop/.../deploy-mongo.sh` — the local file to upload (full path from your machine).
+> - `ubuntu@<your-public-ip>:~/` — the destination on the remote instance: the `ubuntu` user's home directory (`~/`).
+>
+> Under the hood, `scp` opens an SSH connection to the instance, authenticates with your key pair, and streams the file over that encrypted channel. Nothing is transmitted in plain text.
 
 ---
 

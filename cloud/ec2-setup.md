@@ -2,6 +2,11 @@
 
 Amazon EC2 (Elastic Compute Cloud) lets you rent virtual servers in the cloud. This guide walks through launching an Ubuntu instance and serving a web page via Nginx.
 
+> **What does "virtual server in the cloud" actually mean?**
+> When you launch an EC2 instance, AWS allocates a portion of a physical computer sitting in one of their data centres — large warehouse-scale buildings filled with racks of servers, power systems, and networking equipment. That physical machine runs virtualisation software that carves it into multiple isolated virtual machines, each behaving like a standalone computer. Your EC2 instance is one of those virtual machines.
+>
+> Crucially, this computer is **remote** — it exists in an AWS data centre, not in front of you. You cannot plug in a monitor or keyboard. The only way to access it is over the internet, which is what SSH is for.
+
 ---
 
 ## 1. Sign In
@@ -164,6 +169,20 @@ ssh -i "your-key-pair-name.pem" ubuntu@<your-public-ip>
 > - `-i "your-key-pair-name.pem"` — tells SSH which private key to use for authentication. The server holds the matching public key (AWS put it there when you launched the instance), so only someone with this `.pem` file can log in.
 > - `ubuntu` — the default username on Ubuntu EC2 instances.
 > - `@<your-public-ip>` — the IP address of your server.
+
+> **How does SSH key authentication actually work?**
+> SSH key pairs use **asymmetric cryptography** — a mathematical system where two keys are linked: anything encrypted with one can only be decrypted with the other.
+>
+> - Your `.pem` file is the **private key** — it never leaves your machine.
+> - When you launched the instance, AWS placed the corresponding **public key** on the server (in a file called `~/.ssh/authorized_keys`). Think of the public key as a padlock and the private key as the only key that opens it.
+>
+> When you run `ssh -i "your-key.pem" ubuntu@<ip>`, here is what happens under the hood:
+> 1. Your machine and the server negotiate a shared encryption algorithm.
+> 2. The server generates a random challenge and encrypts it with your public key — only your private key can decrypt it.
+> 3. Your SSH client decrypts the challenge and sends back a proof derived from it.
+> 4. The server verifies the proof. If it matches, authentication succeeds and an encrypted session is opened.
+>
+> No password is ever transmitted. Someone intercepting the connection cannot log in because they do not have your private key.
 
 When prompted with a host authenticity warning, type `yes` and press Enter to authorise the login.
 
